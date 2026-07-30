@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     ADMIN_USERNAME: str = "admin"
     ADMIN_PASSWORD: str = "admin123"
 
-    CORS_ORIGINS: str = "http://localhost:5174"
+    CORS_ORIGINS: str = "*"
 
     model_config = SettingsConfigDict(
         env_file=".env",

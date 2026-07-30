@@ -3,17 +3,42 @@ services:
     image: postgres:17-alpine
     container_name: haydash-postgres
     restart: unless-stopped
-
     environment:
       POSTGRES_DB: haydash_anketa
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-
     ports:
       - "5433:5432"
-
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - /home/xursand/apps/axis/pgdata:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: haydash-backend
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql+psycopg2://postgres:postgres@postgres:5432/haydash_anketa
+      SECRET_KEY: super-secret-key-change-me
+      CORS_ORIGINS: "*"
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ../Haydashga-anketa-frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:8000
+    container_name: haydash-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3002:3002"
 
 volumes:
   postgres_data:
