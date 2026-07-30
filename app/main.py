@@ -21,12 +21,8 @@ Base.metadata.create_all(
     bind=engine
 )
 
+app = FastAPI(title="Axis Backend API", lifespan=lifespan, openapi_url="/openapi.json", root_path=os.getenv("ROOT_PATH", ""))
 
-app = FastAPI(
-    title="Haydash Anketa API",
-    description="Haydashga munosabat anketasi backend API",
-    version="1.0.0",
-)
 
 
 origins = [

@@ -7,10 +7,11 @@ services:
       POSTGRES_DB: haydash_anketa
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-    ports:
-      - "5433:5432"
     volumes:
-      - /home/xursand/apps/axis/pgdata:/var/lib/postgresql/data
+      - /home/xursand/apps/haydash/pgdata:/var/lib/postgresql/data
+    networks:
+      - haydash-network
+      - shared_network
 
   backend:
     build:
@@ -24,8 +25,9 @@ services:
       DATABASE_URL: postgresql+psycopg2://postgres:postgres@postgres:5432/haydash_anketa
       SECRET_KEY: super-secret-key-change-me
       CORS_ORIGINS: "*"
-    ports:
-      - "8000:8000"
+    networks:
+      - haydash-network
+      - shared_network
 
   frontend:
     build:
@@ -37,8 +39,15 @@ services:
     restart: unless-stopped
     depends_on:
       - backend
-    ports:
-      - "3002:3002"
+    networks:
+      - haydash-network
+      - shared_network
+
+networks:
+  haydash-network:
+    driver: bridge
+  shared_network:
+    external: true
 
 volumes:
   postgres_data:
