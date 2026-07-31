@@ -25,6 +25,7 @@ services:
       DATABASE_URL: postgresql+psycopg2://postgres:postgres@postgres:5432/haydash_anketa
       SECRET_KEY: super-secret-key-change-me
       CORS_ORIGINS: "*"
+      ROOT_PATH: /api
     networks:
       - haydash-network
       - shared_network

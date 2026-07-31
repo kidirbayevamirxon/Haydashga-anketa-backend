@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.database import Base, engine
+import os
 
 # Models import qilinishi shart
 from app.models import (
@@ -21,7 +22,7 @@ Base.metadata.create_all(
     bind=engine
 )
 
-app = FastAPI(title="Axis Backend API", lifespan=lifespan, openapi_url="/openapi.json", root_path=os.getenv("ROOT_PATH", ""))
+app = FastAPI(title="Axis Backend API", openapi_url="/openapi.json", root_path=os.getenv("ROOT_PATH", ""))
 
 
 
