@@ -35,7 +35,7 @@ services:
       context: ../Haydashga-anketa-frontend
       dockerfile: Dockerfile
       args:
-        VITE_API_URL: http://localhost:8000
+        VITE_API_URL: https://anketa.techsoftx.uz/api
     container_name: haydash-frontend
     restart: unless-stopped
     depends_on:
