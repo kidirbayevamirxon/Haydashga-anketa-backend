@@ -7,7 +7,7 @@ from app.models.survey import Survey, SurveyAnswer
 from app.schemas.survey import SurveyCreate
 
 
-EXPECTED_ANSWERS = 20
+EXPECTED_ANSWERS = 18
 
 
 def create_survey(
